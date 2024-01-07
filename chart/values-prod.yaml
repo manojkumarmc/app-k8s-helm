@@ -1,0 +1,6 @@
+replicaCount: 3  # Increase replicas for production
+env:
+  - name: ENVIRONMENT
+    value: prod
+  - name: LOG_LEVEL
+    value: ERROR

@@ -1,0 +1,11 @@
+replicaCount: 1
+image:
+  repository: my-app
+  pullPolicy: IfNotPresent
+
+# Environment-specific variables
+env:
+  - name: ENVIRONMENT
+    value: dev  # Default environment
+  - name: LOG_LEVEL
+    value: DEBUG

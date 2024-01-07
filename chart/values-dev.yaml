@@ -1,0 +1,5 @@
+env:
+  - name: ENVIRONMENT
+    value: dev
+  - name: LOG_LEVEL
+    value: DEBUG
