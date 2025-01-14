@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: fastapi-uv-replicaset
+spec:
+  replicas: 3  # Number of replicas
+  selector:
+    matchLabels:
+      app: fastapi-uv # Should match pod labels
+  template:
+    metadata:
+      labels:
+        app: fastapi-uv # Should match selector labels
+    spec:
+      containers:
+        - name: fastapi-uv-container
+          image: fastapi-uv
+          ports:
+           - containerPort: 8000
+          env:
+           - name: GREETING_MESSAGE
+             valueFrom:
+               configMapKeyRef:
+                 name: fastapi-uv-config
+                 key: greeting

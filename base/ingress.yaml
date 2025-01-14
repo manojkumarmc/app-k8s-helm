@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fastapi-uv-ingress
+  annotations:
+   nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: fastapi.example.com # Example domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: fastapi-uv-service
+                port:
+                  number: 80

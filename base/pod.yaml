@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: fastapi-uv-pod
+  labels:
+    app: fastapi-uv
+spec:
+  containers:
+    - name: fastapi-uv-container
+      image: fastapi-uv
+      ports:
+        - containerPort: 8000 # Default port for FastAPI app
+      env:
+        - name: GREETING_MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: fastapi-uv-config
+              key: greeting

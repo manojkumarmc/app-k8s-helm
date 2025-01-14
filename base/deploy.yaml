@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-uv-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-uv
+  template:
+    metadata:
+      labels:
+        app: fastapi-uv
+    spec:
+      containers:
+        - name: fastapi-uv-container
+          image: fastapi-uv
+          ports:
+            - containerPort: 8000
+          env:
+            - name: GREETING_MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: fastapi-uv-config
+                  key: greeting
+          readinessProbe: # Example Readiness Probe
+            httpGet:
+              path: /docs  # Replace with your actual readiness endpoint
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe: # Example Liveness Probe
+            httpGet:
+              path: /docs # Replace with your actual liveness endpoint
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 15
